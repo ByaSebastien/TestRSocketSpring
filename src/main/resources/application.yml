@@ -1,0 +1,8 @@
+spring:
+  rsocket:
+    server:
+      port: 7000              # Port sur lequel le serveur RSocket écoutera
+      mapping-path: /rsocket  # Chemin pour établir une connexion RSocket via WebSocket
+      transport: websocket
+server:
+  port: 8080
