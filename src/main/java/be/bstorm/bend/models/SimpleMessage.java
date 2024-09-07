@@ -1,6 +1,6 @@
 package be.bstorm.bend.models;
 
-public record Message(
+public record SimpleMessage(
         String content
 ) {
 }
