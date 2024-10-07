@@ -1,8 +1,20 @@
-spring:
-  rsocket:
-    server:
-      port: 7000              # Port sur lequel le serveur RSocket écoutera
-      mapping-path: /rsocket  # Chemin pour établir une connexion RSocket via WebSocket
-      transport: websocket
 server:
   port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo_rsocket
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  rsocket:
+    server:
+      port: 7000
+      mapping-path: /rsocket
+      transport: websocket

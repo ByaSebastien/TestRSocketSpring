@@ -1,7 +1,7 @@
 package be.bstorm.bend.hubs;
 
 import be.bstorm.bend.models.PrivateMessage;
-import be.bstorm.bend.models.User;
+import be.bstorm.bend.models.SimpleUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,10 @@ public class PrivateChatHub {
 
     // Méthode pour enregistrer un utilisateur et associer un Sink à son username
     @MessageMapping("register-private-chat")
-    public void registerUser(User user) {
+    public void registerUser(SimpleUser simpleUser) {
         // Crée un Sink pour cet utilisateur s'il n'existe pas déjà
-        userSinks.putIfAbsent(user.username(), Sinks.many().replay().limit(10));
-        System.out.println(user.username() + " est enregistré !");
+        userSinks.putIfAbsent(simpleUser.username(), Sinks.many().replay().limit(10));
+        System.out.println(simpleUser.username() + " est enregistré !");
     }
 
     // Méthode pour envoyer un message privé
@@ -40,9 +40,9 @@ public class PrivateChatHub {
 
     // Méthode pour recevoir les messages d'un utilisateur
     @MessageMapping("private-chat")
-    public Flux<PrivateMessage> receiveMessages(User user) {
+    public Flux<PrivateMessage> receiveMessages(SimpleUser simpleUser) {
         // Retourne un flux de messages pour l'utilisateur spécifié
-        Sinks.Many<PrivateMessage> userSink = userSinks.get(user.username());
+        Sinks.Many<PrivateMessage> userSink = userSinks.get(simpleUser.username());
         if (userSink != null) {
             return userSink.asFlux();
         } else {

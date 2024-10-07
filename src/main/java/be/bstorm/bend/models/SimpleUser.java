@@ -1,6 +1,6 @@
 package be.bstorm.bend.models;
 
-public record User(
+public record SimpleUser(
         String username
 ) {
 }
